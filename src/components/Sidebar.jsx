@@ -1,30 +1,48 @@
-import React from 'react'
-import { Link , NavLink } from 'react-router-dom'
-import { SiShopware } from 'react-icons/si';
-import { MdOutlineCancel } from 'react-icons/md';
-import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-import './side.css'
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
+import { SiShopware } from "react-icons/si";
+import { MdOutlineCancel } from "react-icons/md";
+import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
-import{links} from '../data/dummy'
+import { links } from "../data/dummy";
+import { useStateContext } from "../context/contextProvider";
 const Sidebar = () => {
-  const activeMenue=true
-  const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2';
-  const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-900 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2';
+  const { activeMenu, setActiveMenu,screenSize } = useStateContext();
+  //  const activeMenue=true
+  //  const setActiveMenu=true
+  const activeLink =
+    "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2";
+  const normalLink =
+  "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-900 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2";
+  const handleSideBar=()=>{
+    if(activeMenu && screenSize<=900){
+      setActiveMenu(false)
+    }
+
+  } 
   return (
-    <div className="b  ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10">
-      {activeMenue && (
+    <div className=" ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10">
+      {activeMenu && (
         <>
           <div className=" flex justify-between items-center">
-            <Link to="/" onClick={()=>{}} className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900">
+            <Link
+              to="/"
+              onClick={handleSideBar}
+              className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
+            >
               <SiShopware /> <span>Shoppy</span>
             </Link>
             <TooltipComponent content="Menu" position="BottomCenter">
               <button
                 type="button"
-                // onClick={() => setActiveMenu(!activeMenu)}
-                // style={{ color: currentColor }}
-                className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden"
+                onClick={(prevActiveMenu) => setActiveMenu(!prevActiveMenu)}
+                onDoubleClick={()=>{setActiveMenu(!activeMenu)
+                  console.log('click')}}
+                
+                style={{ color: "red" }}
+                className="text-4xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden"
               >
+                red
                 <MdOutlineCancel />
               </button>
             </TooltipComponent>
@@ -39,11 +57,13 @@ const Sidebar = () => {
                   <NavLink
                     to={`/${link.name}`}
                     key={link.name}
-                    // onClick={handleCloseSideBar}
+                    onClick={handleSideBar}
                     // style={({ isActive }) => ({
                     //   backgroundColor: isActive ? currentColor : '',
                     // })}
-                    className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                    className={({ isActive }) =>
+                      isActive ? activeLink : normalLink
+                    }
                   >
                     {link.icon}
                     <span className="capitalize ">{link.name}</span>
@@ -58,8 +78,7 @@ const Sidebar = () => {
   );
 };
 
-
-  // )
+// )
 // }
 
-export default Sidebar
+export default Sidebar;

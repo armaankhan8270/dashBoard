@@ -6,10 +6,11 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor } from './pages';
 import { useStateContext } from './context/contextProvider';
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
-import {armaan} from './context/contextProvider';
+import { MdOutlineCancel } from 'react-icons/md';
+// import {armaan} from './context/contextProvider';
 function App() {
-  // const {activeMenue}=useStateContext()
-const activeMenue=true
+  const {activeMenu,setActiveMenu}=useStateContext()
+// const activeMenue=true
   return (
     <div>
       <BrowserRouter>
@@ -24,28 +25,32 @@ const activeMenue=true
                 // onClick={() => setThemeSettings(true)}
                 style={{ background: 'blue' ,borderRadius: '50%' }}
                 className="text-4xl text-white p-3 hover:drop-shadow-4xl hover:bg-light-gray"
+                onClick={()=>{setActiveMenu(false)}}
+                onDoubleClick={()=>{setActiveMenu(true)}}
               >
                 <FiSettings />
               </button>
+              
 
             </TooltipComponent>
 
         </div>
         <div>
+              
           {
-            activeMenue?(
+            activeMenu?(
               <div className='w-72 fixed sidebar dark:bg-secondary-dark bg-white'><Sidebar/></div>
             ):(
-              <div className='w-0 dark:bg-secondary-dark-bg bg-blue'>
+              <div className='w-0  dark:bg-secondary-dark-bg bg-blue'>
                 <Sidebar/>
               </div>
             )
           }
         </div>
-        <div className={ `dark:bg-main-bg bg-main-bg  min-h-screen w-full ${activeMenue?'md:ml-72':'flex-2'}`}>
+        <div className={ `dark:bg-main-bg bg-main-bg  min-h-screen w-full ${activeMenu?'md:ml-72':'flex-2'}`}>
           <div className='fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full'>
 <Navbar/>
-          </div>
+          
        </div>
 
 <div>
@@ -76,6 +81,7 @@ const activeMenue=true
                 <Route path="/stacked" element={<Stacked />} />
 
               </Routes>
+</div>
 </div>
       </div>
       </BrowserRouter>
