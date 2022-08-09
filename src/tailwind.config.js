@@ -1,3 +1,4 @@
+
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   darkMode: 'class',
@@ -40,9 +41,9 @@ module.exports = {
       },
       backgroundImage: {
         'hero-pattern':
-          "url('https://i.ibb.co/MkvLDfb/Rectangle-4389.png')",
+          `url('https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200')`,
       },
     },
   },
-  plugins: [],
+  plugins: ['*'],
 };
