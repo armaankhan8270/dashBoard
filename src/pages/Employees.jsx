@@ -1,24 +1,27 @@
+import { GridComponent, ColumnsDirective, ColumnDirective,Search, Resize, Sort,Toolbar, ContextMenu, Filter, Page, ExcelExport, PdfExport, Edit, Inject } from '@syncfusion/ej2-react-grids';
 import React from 'react';
-import { BsCurrencyDollar } from 'react-icons/bs';
-import { GoPrimitiveDot } from 'react-icons/go';
-import { IoIosMore } from 'react-icons/io';
-import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
-
-import { Stacked, Pie, Button, LineChart, SparkLine } from '../components';
-import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropdownData, SparklineAreaData, ecomPieChartData } from '../data/dummy';
-import { useStateContext } from '../context/contextProvider';
-import product9 from '../data/product9.jpg';
+import { employeesData, contextMenuItems, employeesGrid } from '../data/dummy';
+import { Header } from '../components';
 
 const Employees = () => {
   return (
-    <div className='mt-12'>
-      <div className='flex flex-wrap lg:flex-nowrap justify-center'>
-<div className='bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center'>
-<div className='flex justify-between items-center'>
-</div>
-</div>
-      </div>
-      </div>
+    <div className='m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl shadow-xl'>
+      <Header categorey='page'title='armaan'/>
+      <GridComponent
+      id='gridcomp'
+      dataSource={employeesData}
+      allowSorting
+      toolbar={['Search']}>
+        
+       
+        <ColumnsDirective>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          {employeesGrid.map((item, index) => <ColumnDirective key={index} {...item} />)}
+        </ColumnsDirective>
+        <Inject services={[Page,Search,Toolbar ]}/>
+       
+      </GridComponent>
+    </div>
   )
 }
 
